@@ -5,7 +5,7 @@ At 00:00 NZ time, the sitemap is rebuilt.
 ✔ Updates all <lastmod> dates
 Every <lastmod> tag becomes today’s date.
 
-✔ Leaves your <changefreq> and <priority> untouched
+✔ Leaves <changefreq> and <priority> untouched
 So your daily/48‑hour rules stay intact.
 
 ✔ Commits the updated XML back to GitHub
