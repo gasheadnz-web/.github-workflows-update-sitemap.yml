@@ -1,0 +1,53 @@
+name: Update Sitemap Automatically
+
+on:
+  schedule:
+    # Runs daily at 00:00 NZ time (11:00 UTC previous day)
+    - cron: "0 11 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  update-sitemap:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Update sitemap
+        run: |
+          python3 << 'EOF'
+          import datetime
+          import re
+
+          today = datetime.date.today().isoformat()
+
+          path = "sitemap.xml"
+
+          with open(path, "r", encoding="utf-8") as f:
+              xml = f.read()
+
+          # Update all <lastmod> tags to today's date
+          xml = re.sub(r"<lastmod>.*?</lastmod>", f"<lastmod>{today}</lastmod>", xml)
+
+          with open(path, "w", encoding="utf-8") as f:
+              f.write(xml)
+
+          print("Sitemap updated for", today)
+          EOF
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add sitemap.xml
+          git commit -m "Automated sitemap update" || echo "No changes to commit"
+
+      - name: Push changes
+        run: |
+          git push
