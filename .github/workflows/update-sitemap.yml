@@ -1,0 +1,38 @@
+name: Daily Sitemap Check
+
+on:
+  schedule:
+    - cron: "0 3 * * *"  # 03:00 GMT
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4
+
+      - name: Run sitemap update script
+        run: python update_sitemap.py
+
+      - name: Commit changes if any
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git config user.name "github-actions"
+            git config user.email "github-actions@github.com"
+            git add .
+            git commit -m "Automated sitemap update"
+            git push
+          else
+            echo "No changes to commit."
+          fi
