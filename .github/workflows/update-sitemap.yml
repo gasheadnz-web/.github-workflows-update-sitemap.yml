@@ -1,5 +1,5 @@
 name: Daily Sitemap Check
-# activated by Jeff
+# activated by GasheadNZ
 on:
   schedule:
     - cron: "0 3 * * *"  # 03:00 GMT
