@@ -2,7 +2,6 @@ name: Daily Sitemap Update
 
 on:
   schedule:
-    # Runs at 03:00 UTC daily (15:00 NZST / 14:00 NZDT)
     - cron: "0 3 * * *"
   workflow_dispatch:
 
@@ -35,7 +34,6 @@ jobs:
           git add sitemap.xml .state.json
           git commit -m "Automated sitemap update" || echo "No changes to commit"
 
-          # Force Git to use your PAT instead of github-actions[bot]
           git remote set-url origin https://$TOKEN@github.com/gasheadnz-web/Sitemap-Updater.git
 
           git push origin main
