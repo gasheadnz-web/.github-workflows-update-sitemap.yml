@@ -1,42 +1,51 @@
-name: Daily Sitemap Update
+name: Update Sitemap
 
 on:
   schedule:
-    - cron: "0 3 * * *"
+    - cron: "11 */12 * * *"   # Every 3 hours
   workflow_dispatch:
 
 jobs:
-  update-sitemap:
+  update:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository (no built-in auth)
+      - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          persist-credentials: false   # ← CRITICAL FIX
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.12"
 
       - name: Install dependencies
-        run: pip install requests beautifulsoup4
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4
 
       - name: Run sitemap updater
-        run: python update_sitemap.py
+        run: |
+          echo "Running update_sitemap.py..."
+          python update_sitemap.py
 
-      - name: Commit and push changes
-        env:
-          TOKEN: ${{ secrets.PAT }}
+      - name: Show diff (for logging)
+        run: |
+          echo "=== GIT DIFF START ==="
+          git diff --color=always || true
+          echo "=== GIT DIFF END ==="
+
+      - name: Commit changes
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
+          git add sitemap.xml .state.json || true
 
-          git add sitemap.xml .state.json
-          git commit -m "Automated sitemap update" || echo "No changes to commit"
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
 
-          # Force PAT authentication
-          git remote set-url origin https://$TOKEN@github.com/gasheadnz-web/Sitemap-Updater.git
-
-          git push origin main
+          git commit -m "Auto-update sitemap"
+          git push
