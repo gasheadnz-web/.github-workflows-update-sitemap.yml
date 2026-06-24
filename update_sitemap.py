@@ -159,4 +159,89 @@ def build_diff_viewer(changed_urls, state, new_state):
     html.append("<h1>Gasheads.org Change Report</h1>")
     html.append(f"<p>Date: {TODAY}</p>")
     html.append("<table border='1' cellpadding='6'>")
-    html.append("<tr><th>URL</th><th>Old</th><th>
+    html.append("<tr><th>URL</th><th>Old</th><th>New</th><th>Status</th></tr>")
+
+    for url in MONITORED_URLS:
+        old = state.get(url)
+        new = new_state.get(url)
+
+        if new is None:
+            status = "<b style='color:red'>DEAD</b>"
+        elif old != new:
+            status = "<b style='color:green'>CHANGED</b>"
+        else:
+            status = "No change"
+
+        html.append(
+            f"<tr><td>{url}</td><td>{old}</td><td>{new}</td><td>{status}</td></tr>"
+        )
+
+    html.append("</table></body></html>")
+    return "\n".join(html)
+
+
+# -----------------------------
+# MAIN LOGIC
+# -----------------------------
+def main():
+    print("Loading previous state...")
+    state = load_state()
+    new_state = {}
+    changed_urls = []
+
+    for url in MONITORED_URLS:
+        print(f"\nChecking {url}...")
+        html = fetch_html(url)
+
+        if html is None:
+            print(f"DEAD URL DETECTED: {url}")
+            new_state[url] = None
+            changed_urls.append(url)
+            continue
+
+        print("Fetched HTML sample:", html[:200].replace("\n", " "))
+
+        if "/board/" in url:
+            ts = extract_board_timestamp(html)
+            print("Extracted timestamp:", ts)
+            new_state[url] = ts
+        else:
+            page_hash = hash_page(html)
+            print("Page hash:", page_hash)
+            new_state[url] = page_hash
+
+        old = state.get(url)
+        new = new_state[url]
+
+        print("Old state:", old)
+        print("New state:", new)
+
+        if old != new:
+            print("CHANGE DETECTED:", url)
+            changed_urls.append(url)
+        else:
+            print("No change.")
+
+    if changed_urls:
+        print("\nUpdating sitemap for changed URLs...")
+        update_sitemap(changed_urls, new_state)
+    else:
+        print("\nNo changes detected.")
+
+    save_state(new_state)
+    print("State saved.")
+
+    summary = build_summary(changed_urls, state, new_state)
+    with open("daily_summary.txt", "w") as f:
+        f.write(summary)
+
+    diff_html = build_diff_viewer(changed_urls, state, new_state)
+    with open("diff_viewer.html", "w") as f:
+        f.write(diff_html)
+
+    print("\n=== DAILY SUMMARY ===")
+    print(summary)
+
+
+if __name__ == "__main__":
+    main()
