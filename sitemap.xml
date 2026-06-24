@@ -1,37 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- Homepage (Updated) -->
+  <!-- Homepage -->
   <url>
-    <loc>http://www.gasheads.org/</loc>
-    <lastmod>2026-06-22</lastmod>
+    <loc>https://gasheads.org/</loc>
+    <lastmod>2026-06-24</lastmod>
   </url>
 
-  <!-- 1. Gas Guzzler (Primary Hub) -->
+  <!-- Gas Guzzler (Primary Hub) -->
   <url>
     <loc>https://gasheads.org/board/2/gas-guzzler</loc>
-    <lastmod>2026-06-23</lastmod>
+    <lastmod>2026-06-24</lastmod>
   </url>
 
-  <!-- 2. England World Cup 2026 Board -->
+  <!-- England World Cup 2026 Board -->
   <url>
     <loc>https://gasheads.org/board/38/</loc>
     <lastmod>2026-06-24</lastmod>
   </url>
 
-  <!-- 3. World Cup 2026 General News -->
+  <!-- World Cup 2026 General News -->
   <url>
     <loc>https://gasheads.org/board/40/world-cup-2026-general-news</loc>
     <lastmod>2026-06-24</lastmod>
   </url>
 
-  <!-- 4. Match Day Threads (Main + Sub Boards) -->
+  <!-- Match Day Threads (Main + Sub Boards) -->
   <url>
     <loc>https://gasheads.org/board/20/match-day-threads</loc>
     <lastmod>2026-05-04</lastmod>
   </url>
 
-  <!-- Sub Boards -->
   <url>
     <loc>https://gasheads.org/board/37/2025-26-match-day-threads</loc>
     <lastmod>2026-05-04</lastmod>
@@ -50,7 +49,6 @@
   <url>
     <loc>https://gasheads.org/board/33/2022-23-match-day-threads</loc>
     <lastmod>2023-05-29</lastmod>
-
   </url>
 
   <url>
@@ -66,7 +64,6 @@
   <url>
     <loc>https://gasheads.org/board/29/2019-20-match-day-threads</loc>
     <lastmod>2020-03-29</lastmod>
-    <priority>0.55</priority>
   </url>
 
   <url>
@@ -87,7 +84,6 @@
   <url>
     <loc>https://gasheads.org/board/21/2015-16-match-day-threads</loc>
     <lastmod>2016-05-25</lastmod>
-    <priority>0.55</priority>
   </url>
 
   <url>
@@ -95,17 +91,16 @@
     <lastmod>2015-05-21</lastmod>
   </url>
 
-  <!-- 5. General Football Chat -->
+  <!-- General Football Chat -->
   <url>
     <loc>https://gasheads.org/board/3/general-football-chat</loc>
     <lastmod>2026-06-19</lastmod>
-
   </url>
 
   <!-- Cricket Lovers -->
   <url>
     <loc>https://gasheads.org/board/6</loc>
-    <lastmod>2026-06-23</lastmod>
+    <lastmod>2026-06-19</lastmod>
   </url>
 
   <!-- Rugby Chat -->
@@ -130,7 +125,6 @@
   <url>
     <loc>https://gasheads.org/board/15</loc>
     <lastmod>2026-04-21</lastmod>
-  
   </url>
 
   <!-- Forum Rules -->
@@ -143,37 +137,30 @@
   <url>
     <loc>https://gasheads.org/page/sitemap2</loc>
     <lastmod>2026-06-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.60</priority>
   </url>
 
-  <!-- Gasheads.org About Us Page -->
+  <!-- About Us -->
   <url>
     <loc>https://gasheads.org/page/about-us</loc>
     <lastmod>2026-06-23</lastmod>
-
   </url>
 
-  <!-- Gasheads.org How to Contribute Page -->
+  <!-- How to Contribute -->
   <url>
     <loc>https://gasheads.org/page/how-to-contribute</loc>
     <lastmod>2026-06-21</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.70</priority>
   </url>
 
-  <!-- Gasheads.org Volunteer Roles -->
+  <!-- Volunteer Roles -->
   <url>
     <loc>https://gasheads.org/page/volunteer</loc>
     <lastmod>2026-06-21</lastmod>
-
   </url>
 
-  <!-- Gasheads.org Contact Us Page -->
+  <!-- Contact Us -->
   <url>
     <loc>https://gasheads.org/page/contact-us</loc>
     <lastmod>2026-06-21</lastmod>
-   
   </url>
 
 </urlset>
